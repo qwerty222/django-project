@@ -11,11 +11,11 @@ class Question(models.Model):
 # - полный текст вопроса
     text = models.TextField()
 # - дата добавления вопроса
-    added_at = models.DateField()
+    added_at = models.DateField(blank = True, auto_now_add=True)
 # - рейтинг вопроса (число)
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=0)
 # - автор вопроса
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author1')
 # - список пользователей, поставивших "лайк"
     likes = models.ManyToManyField(User)
 
