@@ -4,6 +4,19 @@ from __future__ import unicode_literals
 from django.db import models
 from django.contrib.auth.models import User
 
+
+# - менеджер модели Question
+class QuestionManager(models.):
+# - метод возвращающий последние добавленные вопросы
+    def new():
+        #return Question.objects.order_by('-added_at')[:5]
+        pass
+# - метод возвращающий вопросы отсортированные по рейтингу
+    def popular():
+        #return Question.objects.order_by('-rating')
+        pass
+
+
 # - вопрос
 class Question(models.Model):
 # - заголовок вопроса
@@ -15,18 +28,10 @@ class Question(models.Model):
 # - рейтинг вопроса (число)
     rating = models.IntegerField(default=0)
 # - автор вопроса
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author1')
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question_author_1')
 # - список пользователей, поставивших "лайк"
-    likes = models.ManyToManyField(User)
+    likes = models.ManyToManyField(User, related_name='question_like_author')
 
-# - менеджер модели Question
-class QuestionManager():
-# - метод возвращающий последние добавленные вопросы
-    def new():
-        return Question.objects.order_by('-added_at')[:5]
-# - метод возвращающий вопросы отсортированные по рейтингу
-    def popular():
-        return Question.objects.order_by('-rating')
 
 # - ответ
 class Answer(models.Model):
