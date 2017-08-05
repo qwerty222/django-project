@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ block.super }} – список ответов
+{% endblock %}
+
+{% block content %}
+    {{ question.title }}
+    {{ question.text }}
+    {% for answer in question.answers.all %}
+    <div class="question">
+        {{ answer.text }}
+    </div>
+    {% endfor %}
+{% endblock %}

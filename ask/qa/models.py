@@ -1,19 +1,18 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 # - менеджер модели Question
-class QuestionManager(models.):
+class QuestionManager(models.Manager):
 # - метод возвращающий последние добавленные вопросы
-    def new():
-        #return Question.objects.order_by('-added_at')[:5]
-        pass
+    def new(self):
+        return self.order_by('-added_at')
 # - метод возвращающий вопросы отсортированные по рейтингу
-    def popular():
-        #return Question.objects.order_by('-rating')
+    def popular(self):
+        return self.order_by('-rating')
         pass
 
 
@@ -31,6 +30,13 @@ class Question(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question_author_1')
 # - список пользователей, поставивших "лайк"
     likes = models.ManyToManyField(User, related_name='question_like_author')
+    objects = QuestionManager()
+    
+    def __unicode__(self):
+        return self.title
+
+    def get_url(self):
+        return reverse('qa:question-answers', kwargs={'id': self.id})
 
 
 # - ответ
@@ -43,3 +49,7 @@ class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 # - автор ответа
     author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.text
+

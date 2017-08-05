@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+  {{ block.super }} – список вопросов
+{% endblock %}
+
+{% block content %}
+    {% for obj in questions %}
+    <div class="question">
+        <a href="{{ obj.build_url }}">{{ obj.title }}</a>
+    </div>
+    {% endfor %}
+{% endblock %}
+
+<nav><ul class="pagination">
+{% for p in paginator.page_range %}
+    {% if p.number == page.number %}
+        <li class="active">
+    {% else %}
+        <li>
+    {% endif %}
+    <a href="{{ paginator.baseurl }}{{ p.number }}">{{ p.number }}</a></li>
+{% endfor %}
+</ul></nav>
