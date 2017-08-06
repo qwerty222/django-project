@@ -23,7 +23,7 @@ class Question(models.Model):
 # - полный текст вопроса
     text = models.TextField()
 # - дата добавления вопроса
-    added_at = models.DateField(blank = True, auto_now_add=True)
+    added_at = models.DateTimeField(blank = True, auto_now_add=True)
 # - рейтинг вопроса (число)
     rating = models.IntegerField(default=0)
 # - автор вопроса
