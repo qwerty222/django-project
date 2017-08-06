@@ -13,8 +13,8 @@ def test(request, *args, **kwargs):
 @require_GET # /?page=2
 def new_questions(request):
     questions_query_set = Question.objects.new()
-    page = paginate(request, questions_query_set, '')
-    return render(request, 'qa/templates/questions.html', {
+    paginator, page = paginate(request, questions_query_set, '')
+    return render(request, 'questions.html', {
         'questions': page.object_list,
         'paginator': paginator, 'page': page,
     })
@@ -22,8 +22,8 @@ def new_questions(request):
 @require_GET # /popular/?page=3
 def popular_questions(request):
     popular_query_set = Question.objects.popular()
-    page = paginate(request, popular_query_set, '/popular')
-    return render(request, 'qa/templates/questions.html', {
+    paginator, page = paginate(request, popular_query_set, '/popular')
+    return render(request, 'questions.html', {
         'questions': page.object_list,
         'paginator': paginator, 'page': page,
     })
@@ -31,7 +31,7 @@ def popular_questions(request):
 @require_GET # /question/5/
 def question_answers(request, id):
     question = get_object_or_404(Question, id=id)
-    return render(request, 'qa/templates/question_answers.html', {'question':question,})
+    return render(request, 'question_answers.html', {'question':question,})
 
 def paginate(request, qs, url):
     limit = 10    
@@ -45,5 +45,5 @@ def paginate(request, qs, url):
         page = paginator.page(page)
     except EmptyPage:
         page = paginator.page(paginator.num_pages)
-    return page
+    return paginator, page
 
