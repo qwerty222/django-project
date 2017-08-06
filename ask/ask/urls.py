@@ -20,6 +20,6 @@ urlpatterns = [
     url(r'^signup/$', views.test),
     url(r'^question/(?P<id>\d+)/$', views.question_answers, name='question-answers'),
     url(r'^ask/$', views.test),
-    url(r'^popular/$'.popular_questions, name='popular-questions'),
+    url(r'^popular/$', views.popular_questions, name='popular-questions'),
     url(r'^new/$', views.test),
 ]
