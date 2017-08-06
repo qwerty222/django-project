@@ -7,7 +7,7 @@
 {% block content %}
     {{ question.title }}
     {{ question.text }}
-    {% for answer in question.answers.all %}
+    {% for answer in question.answer_set.all %}
     <div class="question">
         {{ answer.text }}
     </div>
