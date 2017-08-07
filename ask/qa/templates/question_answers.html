@@ -12,8 +12,6 @@
         {{ answer.text }}
     </div>
     {% endfor %}
-{% endblock %}
-
 {% for e in form.non_field_errors %}
 <div class="alert alert-danger">{{ e }}</div>
 {% endfor %}
@@ -31,3 +29,4 @@
     <button type="submit" class="btn btn-primary">Сохранить</button>
   </div>
 </form>
+{% endblock %}

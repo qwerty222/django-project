@@ -27,7 +27,7 @@ class Question(models.Model):
 # - рейтинг вопроса (число)
     rating = models.IntegerField(default=0)
 # - автор вопроса
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='question_author_1')
+    author = models.ForeignKey(User, default=1, on_delete=models.CASCADE, related_name='question_author_1')
 # - список пользователей, поставивших "лайк"
     likes = models.ManyToManyField(User, related_name='question_like_author')
     objects = QuestionManager()
@@ -36,7 +36,7 @@ class Question(models.Model):
         return self.title
 
     def get_url(self):
-        return reverse('qa:question-answers', kwargs={'id': self.id})
+        return reverse('question-answers', kwargs={'id': self.id})
 
 
 # - ответ

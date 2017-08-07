@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 from django.shortcuts import render, get_object_or_404
 from django.views.decorators.http import require_GET
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator, Page, EmptyPage
 from qa.models import Question, Answer
 from qa.forms import AskForm, AnswerForm
