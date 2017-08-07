@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django import forms
 from qa.models import Question, Answer
 
@@ -24,7 +25,7 @@ class AnswerForm(forms.Form):
     # - поле текста ответа    
     text = forms.CharField(max_length=100)
     # - поле для связи с вопросом
-    question = forms.CharField(max_length=100)
+    question = forms.IntegerField()
 
     def clean(self):
         if is_spam(self.clean_data):
