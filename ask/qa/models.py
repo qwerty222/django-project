@@ -44,7 +44,7 @@ class Answer(models.Model):
 # - текст ответа
     text = models.TextField()
 # - дата добавления ответа
-    added_at = models.DateField()
+    added_at = models.DateTimeField(blank = True, auto_now_add=True)
 # - вопрос, к которому относится ответ
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
 # - автор ответа
@@ -52,4 +52,10 @@ class Answer(models.Model):
 
     def __unicode__(self):
         return self.text
+
+    def get_url(self):
+        return self.question.get_url()
+
+
+
 

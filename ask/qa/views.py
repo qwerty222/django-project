@@ -7,6 +7,20 @@ from django.core.paginator import Paginator, Page, EmptyPage
 from qa.models import Question, Answer
 
 
+def paginate(request, qs, url):
+    limit = 10    
+    try:
+        page = int(request.GET.get('page', 1))
+    except ValueError:
+        raise Http404
+    paginator = Paginator(qs, limit)
+    paginator.baseurl = url + '/?page='
+    try:
+        page = paginator.page(page)
+    except EmptyPage:
+        page = paginator.page(paginator.num_pages)
+    return paginator, page
+
 def test(request, *args, **kwargs):
     return HttpResponse('OK')
 
@@ -28,22 +42,33 @@ def popular_questions(request):
         'paginator': paginator, 'page': page,
     })
 
-@require_GET # /question/5/
+# /question/id/
 def question_answers(request, id):
     question = get_object_or_404(Question, id=id)
-    return render(request, 'question_answers.html', {'question':question,})
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            answer = form.save()
+            url = answer.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AnswerForm()
+    return render(request, 'question_answers.html', {'question':question, 'form': form})
 
-def paginate(request, qs, url):
-    limit = 10    
-    try:
-        page = int(request.GET.get('page', 1))
-    except ValueError:
-        raise Http404
-    paginator = Paginator(qs, limit)
-    paginator.baseurl = url + '/?page='
-    try:
-        page = paginator.page(page)
-    except EmptyPage:
-        page = paginator.page(paginator.num_pages)
-    return paginator, page
+# /ask/
+def question_add(request):
+    if request.method == "POST":
+        form = AskForm(request.POST)
+        if form.is_valid():
+            question = form.save()
+            url = question.get_url()
+            return HttpResponseRedirect(url)
+    else:
+        form = AskForm()
+    return render(request, 'question_add.html', {'form': form})
+
+
+
+
+
 

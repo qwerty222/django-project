@@ -7,7 +7,7 @@
 {% block content %}
     {% for obj in questions %}
     <div class="question">
-        <a href="{{ obj.build_url }}">{{ obj.title }}</a>
+        <a href="{{ obj.get_url }}">{{ obj.title }}</a>
     </div>
     {% endfor %}
 {% endblock %}

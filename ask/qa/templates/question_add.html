@@ -1,23 +1,7 @@
-{% extends "base.html" %}
-
-{% block title %}
-  {{ block.super }} – список ответов
-{% endblock %}
-
-{% block content %}
-    {{ question.title }}
-    {{ question.text }}
-    {% for answer in question.answer_set.all %}
-    <div class="question">
-        {{ answer.text }}
-    </div>
-    {% endfor %}
-{% endblock %}
-
 {% for e in form.non_field_errors %}
 <div class="alert alert-danger">{{ e }}</div>
 {% endif %}
-<form class="form-horizontal" method="post" action="/question/id/">
+<form class="form-horizontal" method="post" action="/ask/">
     {% csrf_token %}
   <fieldset>
     {% for field in form %}
