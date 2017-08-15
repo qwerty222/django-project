@@ -45,7 +45,7 @@ class AnswerForm(forms.Form):
 
 
 # - форма регистрации нового пользователя
-class UserForm(forms.ModelForm):
+class UserForm(forms.Form):
     # - имя пользователя, логин
     username = forms.CharField(max_length=100)
     # - email пользователя
@@ -58,7 +58,7 @@ class UserForm(forms.ModelForm):
 
 
 # - форма логина
-class LoginForm(forms.ModelForm):
+class LoginForm(forms.Form):
     # - имя пользователя, логин
     username = forms.CharField(max_length=100)
     # - пароль пользователя
