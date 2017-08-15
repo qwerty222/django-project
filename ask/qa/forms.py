@@ -54,7 +54,7 @@ class UserForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)  # class Meta: model = User
 
     def save(self):
-        return User.objects.create(**self.cleaned_data)  # create_user('john', 'lennon@thebeatles.com', 'johnpassword')
+        return User.objects.create_user(**self.cleaned_data)
 
 
 # - форма логина
